@@ -1,0 +1,206 @@
+import os
+import shutil
+import glob
+import pandas as pd
+from pathlib import Path
+from datetime import datetime, timedelta
+
+
+
+def previous_day():
+    day = datetime.now() - timedelta(days=1)
+    return day.day
+
+def current_day():
+    day = datetime.now().day
+    return day
+
+def current_month():
+    month = datetime.now()
+    month = month.strftime("%B")
+    return month.upper()
+
+def current_year():
+    year = datetime.now().year
+    return year
+
+previous_day()
+current_day()
+current_month()
+current_year()
+
+
+# get files from flash drive with similar directories or folders.
+fbm_folder = Path(r"F:\\Server Reports\\Sessions\\")
+dingo_folder = Path(r"F:\\EBINGO BAGUIO\\")
+zest_ortiz_foder = Path(r"F:\\")
+
+# continuation to the file with changing file name. To get specific name from the file to match
+#fbm:
+fbm_final_accounting_link = list(fbm_folder.glob("**/FBM REPORT ACCOUNTING FINAL*.xls"))
+fbm_session_report_link = list(fbm_folder.glob("**/FBM SESSION REPORT*.pdf"))
+fbm_recon_report_link = list(fbm_folder.glob("**/FBM RECONCILIATION REPORT*.xlsx")) 
+fbm_recon_report_link_two = list(fbm_folder.glob("**/FBM RECONCILIATION REPORT*.xlsx")) 
+
+#dingo:
+dingo_final_accounting_link = list(dingo_folder.glob("**/DINGO REPORT ACCOUNTING FINAL*.xls"))
+dingo_session_report_link = list(dingo_folder.glob("**/DINGO SESSION REPORT*.pdf"))
+dingo_recon_report_link = list(dingo_folder.glob("**/DINGO RECONCILIATION REPORT*.xlsx"))
+
+#ortiz:
+ortiz_report_link =  list(zest_ortiz_foder.glob("**/ORTIZ RepAccountMac_Synthetic_All Models_*.pdf"))
+
+#zest:
+zest_report_csv = list(zest_ortiz_foder.glob("**/ZEST T2_RAF_E_BINGO_BAGUIO_*.csv"))
+zest_report_pdf = list(zest_ortiz_foder.glob("**/ZEST T2_RAF_E_BINGO_BAGUIO_*.pdf"))
+zest_report_pdf_crdownload = list(zest_ortiz_foder.glob("**/ZEST T2_RAF_E_BINGO_BAGUIO_*.pdf.crdownload"))
+
+
+# transfer files to:
+fbm_file_destination = f"C:\\Users\\Dell\\Desktop\\ebingo Reports\\FBM REPORTS\\FBM REPORTS\\{current_year()}\\{current_month()} {current_year()}"
+dingo_file_destination = f"C:\\Users\Dell\\Desktop\\ebingo Reports\\DINGO REPORTS\\DINGO REPORTS\\{current_year()}\\{current_month()} {current_year()}"
+ortiz_file_destination = f"C:\\Users\\Dell\\Desktop\\ebingo Reports\\ORTIZ REPORTS\\{current_year()}\\{current_month()} {current_year()}"
+zest_file_destination = f"C:\\Users\\Dell\\Desktop\\ebingo Reports\\ZEST REPORTS\\ZEST\\{current_year()}\\{current_month()} {current_year()}"
+
+
+#renamed files:
+#fbm:
+fbm_final_accounting = list(fbm_folder.glob("**/ReportAccountingFinal-*.xls"))
+fbm_session_report = list(fbm_folder.glob("**/SessionReport-*.pdf"))
+fbm_recon_report = list(fbm_folder.glob("**/ReconciliationReport.xlsx")) 
+
+
+#dingo:
+dingo_final_accounting = list(dingo_folder.glob("**/ReportAccountingFinal-*.xls"))
+dingo_session_report = list(dingo_folder.glob("**/SessionReport-*.pdf"))
+dingo_recon_report = list(dingo_folder.glob("**/ReconciliationReport.xlsx"))
+
+#ortiz:
+ortiz_report =  list(zest_ortiz_foder.glob("**/RepAccountMac_Synthetic_All Models*.pdf"))
+
+#zest:
+zest_report = list(zest_ortiz_foder.glob("**/T2_RAF_E_BINGO_BAGUIO_Terminal_Summary*.csv"))
+zest_report_pdf_list = list(zest_ortiz_foder.glob("**/T2_RAF_E_BINGO_BAGUIO_*_Terminal_Summary*.pdf"))
+zest_report_pdf_crdownload_list = list(zest_ortiz_foder.glob("**/T2_RAF_E_BINGO_BAGUIO_*.pdf.crdownload"))
+
+#T2_RAF_E_BINGO_BAGUIO_202507091201_Terminal_Summary.pdf
+
+#for new names
+fbm_final_folder = rf"C:\\Users\Dell\\Desktop\\ebingo Reports\\FBM REPORTS\\FBM REPORTS\\{current_year}\\{current_month} {current_year}\\"
+dingo_final_folder = rf"C:\\Users\Dell\\Desktop\\ebingo Reports\\DINGO REPORTS\\DINGO REPORTS\\{current_year}\\{current_month} {current_year}\\"
+ortiz_final_folder = rf"C:\\Users\Dell\\Desktop\\ebingo Reports\\ORTIZ REPORTS\\{current_year}\\{current_month} {current_year}\\"
+zest_final_folder = rf"C:\\Users\\Dell\\Desktop\\ebingo Reports\\ZEST REPORTS\\ZEST\\{current_year}\\{current_month} {current_year}\\"
+
+# patterns
+#fbm:
+fbm_final_accounting_pattern = "FBM REPORT ACCOUNTING FINAL*"
+fbm_final_session_pattern = "FBM SESSION REPORT*"
+fbm_final_recon_pattern = "FBM RECONCILIATION REPORT*"
+
+#dingo:
+dingo_final_accounting_pattern = "DINGO REPORT ACCOUNTING FINAL*"
+dingo_final_session_pattern = "DINGO SESSION REPORT*"
+dingo_final_recon_pattern = "DINGO RECONCILIATION REPORT*"
+
+#ortiz:
+ortiz_final_pattern = "ORTIZ RepAccountMac_Synthetic_All Models_*"
+
+#zest:
+zest_final_csv_pattern = "ZEST T2_RAF_E_BINGO_BAGUIO*"
+zest_final_pdf_pattern = "ZEST T2_RAF_E_BINGO_BAGUIO*"
+
+"""# test link
+if zest_report_pdf:
+    file_path = zest_report_pdf[0]
+    print("zest FILE IS WORKING! Found:", file_path)
+
+    #fbm = pd.read_excel(file_path)
+else:
+    print("No Zest file found.")"""
+
+# to create folder when none exists
+
+#folder_name = f"{current_month} {current_year}"
+#os.mkdir(folder_name)
+
+
+
+# to rename files from flash drive
+def rename_file(supplier_dot_list, new_name):
+
+    supplier_dot_list
+
+    renamed_file = new_name
+    renamed_file_date = f"{current_month()} {previous_day()}"
+
+    try:
+        for file in supplier_dot_list:
+            if file.is_file():
+                changed_name = f"{renamed_file}{renamed_file_date}{file.suffix}"
+                path = file.with_name(changed_name)
+                os.rename(file, path)
+    except FileExistsError:
+        print("File name already exists.")
+    except FileNotFoundError:
+        print("File not found.")
+
+# transfer and copy files.
+def transfer_files(file_source, file_destination):
+
+    try:
+        file_path = file_source[0]
+        shutil.copy(file_path, file_destination)
+    except FileExistsError:
+        print("File already Exists.")
+    except FileNotFoundError:
+        print("File not found.")
+    except Exception as e:
+        print("An error occured:", e)
+
+
+# to rename files in Flash Drive F:\\
+#fbm
+rename_file(fbm_final_accounting, "FBM REPORT ACCOUNTING FINAL ")
+rename_file(fbm_session_report, "FBM SESSION REPORT ") 
+rename_file(fbm_recon_report, "FBM RECONCILIATION REPORT ") 
+
+#dingo
+rename_file(dingo_final_accounting, "DINGO REPORT ACCOUNTING FINAL ")
+rename_file(dingo_session_report, "DINGO SESSION REPORT ")
+rename_file(dingo_recon_report, "DINGO RECONCILIATION REPORT ")
+
+#ortiz
+rename_file(ortiz_report, "ORTIZ RepAccountMac_Synthetic_All Models_")
+
+#zest
+rename_file(zest_report, "ZEST T2_RAF_E_BINGO_BAGUIO_")
+rename_file(zest_report_pdf_list, "ZEST T2_RAF_E_BINGO_BAGUIO_")
+rename_file(zest_report_pdf_crdownload_list, "ZEST T2_RAF_E_BINGO_BAGUIO_")
+
+#to transfer files from flash drive to file destination:
+# fbm files:
+transfer_files(fbm_final_accounting_link, fbm_file_destination) #OK
+transfer_files(fbm_session_report_link, fbm_file_destination) #OK
+transfer_files(fbm_recon_report_link, fbm_file_destination) #OK
+transfer_files(fbm_recon_report_link_two, fbm_file_destination) #OK
+
+ 
+# dingo files:
+transfer_files(dingo_final_accounting_link, dingo_file_destination) #ok
+transfer_files(dingo_session_report_link, dingo_file_destination) #ok
+transfer_files(dingo_recon_report_link, dingo_file_destination) 
+
+# ortiz files:
+transfer_files(ortiz_report_link, ortiz_file_destination) #ok
+
+# zest files:
+transfer_files(zest_report_csv, zest_file_destination) #ok
+transfer_files(zest_report_pdf, zest_file_destination)
+transfer_files(zest_report_pdf_crdownload, zest_file_destination)
+
+print("it's done")
+
+
+# py to exe
+#pyinstaller --onefile --windowed --icon=TRANSFER_FILES_ICON.ico file_transfer.py
+
